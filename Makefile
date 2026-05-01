@@ -7,6 +7,12 @@ loader:
 
 all: bpf loader
 
+install:
+       cp blocker.o /usr/local/lib/bpf/copy_fail_blocker.o
+       cp copyfail-filter.service /etc/systemd/system/copyfail-filter.service
+       systemctl daemon-reload
+       systemctl enable --now copyfail-filter.service
+
 clean:
 	rm -f blocker.o
 	rm -f blocker.skel.h
