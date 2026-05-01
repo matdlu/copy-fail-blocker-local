@@ -94,6 +94,11 @@ int BPF_PROG(block_af_alg, int family, int type, int protocol,
 Requires a kernel built with `CONFIG_BPF_LSM=y` and `bpf` in the active LSM
 stack (`lsm=...,bpf` on the kernel command line). 
 
+## Install systemd unit
+Systemd may be used to load bpf filter. You may use make install to install
+filter in /usr/local/lib/bpf/copy_fail_blocker.o, install sysetmd unit file
+copyfail-filter.service, reload systemd and load the filter.
+
 ## Limitations
 
 - **Anyone with `CAP_BPF` and `CAP_SYS_ADMIN`** on the host can detach the
