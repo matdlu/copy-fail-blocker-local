@@ -1,0 +1,19 @@
+[Unit]
+Description=Blokada CopyFail via BPF LSM
+DefaultDependencies=no
+After=local-fs.target
+Before=sysinit.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+ExecStart=/usr/sbin/bpftool prog loadall /usr/local/lib/bpf/copy_fail_blocker.o /sys/fs/bpf/copy_fail_blocker autoattach
+ExecStop=/usr/bin/rm -f /sys/fs/bpf/copy_fail_blocker
+
+CapabilityBoundingSet=CAP_SYS_ADMIN CAP_BPF
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=sysinit.target
+
